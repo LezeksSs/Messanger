@@ -14,7 +14,7 @@ public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private long id;
     @Column(name = "created_date")
     @CreationTimestamp
     private Date createdOn;
@@ -72,7 +72,7 @@ public class Chat {
         this.messages = messages;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

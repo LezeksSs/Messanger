@@ -1,6 +1,7 @@
 package com.example.MessangerServer.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -12,8 +13,9 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private long id;
     @Column(name = "text")
+    @Size(max = 1000)
     private String text;
     @Column(name = "sending_date")
     @CreationTimestamp
@@ -41,7 +43,7 @@ public class Message {
         this.modifiedOn = modifiedOn;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

@@ -1,25 +1,39 @@
 package com.example.MessangerServer.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
-public class User {
+public class User implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private long id;
     @Column(name = "nickname")
+    @Size(min = 2, max = 20)
     private String nickname;
+    @Size(max = 50)
     @Column(name = "password")
     private String password;
+    @Size(max = 50)
     @Column(name = "email")
     private String email;
     @Column(name = "created_date")
@@ -37,77 +51,34 @@ public class User {
     )
     private List<Chat> chats;
 
-    public User() {
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 
-    public User(String nickname, String password, String email, Date createdOn, Date modifiedOn) {
-        this.nickname = nickname;
-        this.password = password;
-        this.email = email;
-        this.createdOn = createdOn;
-        this.modifiedOn = modifiedOn;
+    @Override
+    public String getUsername() {
+        return null;
     }
 
-    public void addChatToUser(Chat chat) {
-        if (chats == null) {
-            chats = new ArrayList<>();
-        }
-        chats.add(chat);
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public List<Chat> getChats() {
-        return chats;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public void setChats(List<Chat> chats) {
-        this.chats = chats;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public Date getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public Date getModifiedOn() {
-        return modifiedOn;
-    }
-
-    public void setModifiedOn(Date modifiedOn) {
-        this.modifiedOn = modifiedOn;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
