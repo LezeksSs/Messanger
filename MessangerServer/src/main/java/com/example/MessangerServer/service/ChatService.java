@@ -24,6 +24,9 @@ public class ChatService {
         if (chatRepository.existsByName(request.getUserTo())) {
             throw new RuntimeException("Чат с таким пользователем уже существует");
         }
+        if (request.getUserTo().equals(userService.getCurrentUser().getNickname())) {
+            throw new RuntimeException("Нельзя создать чат с самим собой");
+        }
 
         var chat = Chat.builder()
                 .name(request.getUserTo())
