@@ -20,6 +20,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Table(name = "users")
 public class User implements UserDetails{
 
@@ -30,7 +31,7 @@ public class User implements UserDetails{
     @Column(name = "nickname")
     @Size(min = 2, max = 20)
     private String nickname;
-    @Size(max = 50)
+
     @Column(name = "password")
     private String password;
     @Size(max = 50)
@@ -51,6 +52,12 @@ public class User implements UserDetails{
     )
     private List<Chat> chats;
 
+    public void addChatToUser(Chat chat) {
+        if (chats == null) {
+            chats = new ArrayList<>();
+        }
+        chats.add(chat);
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
