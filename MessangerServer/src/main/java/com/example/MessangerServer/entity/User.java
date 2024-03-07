@@ -1,5 +1,6 @@
 package com.example.MessangerServer.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -44,6 +45,7 @@ public class User implements UserDetails{
     @UpdateTimestamp
     private Date modifiedOn;
 
+    @JsonIgnore
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinTable(
             name = "user_chat",

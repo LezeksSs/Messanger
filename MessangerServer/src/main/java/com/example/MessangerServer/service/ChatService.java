@@ -8,6 +8,8 @@ import com.example.MessangerServer.repository_dao.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ChatService {
@@ -36,5 +38,9 @@ public class ChatService {
         chat.addUserToChat(userRepository.findUserByNickname(request.getUserTo()));
 
         return saveChat(chat);
+    }
+
+    public List<Chat> getChats() {
+        return userService.getCurrentUser().getChats();
     }
 }
