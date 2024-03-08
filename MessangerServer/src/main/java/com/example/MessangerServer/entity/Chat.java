@@ -31,8 +31,8 @@ public class Chat {
     @UpdateTimestamp
     private Date modifiedOn;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "chat_id")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "chat_id", referencedColumnName = "id", insertable = true, updatable = true, nullable = false)
     private List<Message> messages;
 
     @JsonIgnore

@@ -8,5 +8,5 @@ public interface ChatRepository extends JpaRepository<Chat, Long> {
 
     boolean existsByName(String name);
 
-    Chat getChatByName(String name);
+    Chat getChatById(Long id);
 }

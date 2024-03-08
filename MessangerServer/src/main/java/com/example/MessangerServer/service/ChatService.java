@@ -43,4 +43,9 @@ public class ChatService {
     public List<Chat> getChats() {
         return userService.getCurrentUser().getChats();
     }
+
+    public Chat getChat(long id) {
+
+        return chatRepository.getChatById(id);
+    }
 }
