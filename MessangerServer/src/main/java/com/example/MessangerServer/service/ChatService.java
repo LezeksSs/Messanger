@@ -45,7 +45,10 @@ public class ChatService {
     }
 
     public Chat getChat(long id) {
-
         return chatRepository.getChatById(id);
+    }
+
+    public void deleteChat(long id) {
+        chatRepository.deleteById(id);
     }
 }
