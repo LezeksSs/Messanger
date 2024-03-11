@@ -24,9 +24,11 @@ public class Chat {
     private long id;
     @Column(name = "name")
     private String name;
+    @JsonIgnore
     @Column(name = "created_date")
     @CreationTimestamp
     private Date createdOn;
+    @JsonIgnore
     @Column(name = "modified_date")
     @UpdateTimestamp
     private Date modifiedOn;

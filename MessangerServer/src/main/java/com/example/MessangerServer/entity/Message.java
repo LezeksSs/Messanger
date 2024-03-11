@@ -1,5 +1,6 @@
 package com.example.MessangerServer.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -30,9 +31,11 @@ public class Message {
     private boolean sending_status;
     @Column(name = "read_status")
     private boolean read_status;
+    @JsonIgnore
     @Column(name = "created_date")
     @CreationTimestamp
     private Date createdOn;
+    @JsonIgnore
     @Column(name = "modified_date")
     @UpdateTimestamp
     private Date modifiedOn;
