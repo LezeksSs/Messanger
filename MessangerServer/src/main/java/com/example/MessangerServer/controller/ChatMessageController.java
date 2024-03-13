@@ -2,6 +2,7 @@ package com.example.MessangerServer.controller;
 
 import com.example.MessangerServer.dto.CreateChatRequest;
 import com.example.MessangerServer.dto.MessageRequest;
+import com.example.MessangerServer.dto.MessageResponse;
 import com.example.MessangerServer.entity.Chat;
 import com.example.MessangerServer.entity.Message;
 import com.example.MessangerServer.service.ChatService;
@@ -54,7 +55,7 @@ public class ChatMessageController {
 
     @Operation(summary = "Получение сообщений в чате по его id")
     @GetMapping("/{id}/message")
-    public List<Message> getMessage(@PathVariable long id) {
+    public List<MessageResponse> getMessage(@PathVariable long id) {
         return messageService.getMessage(id);
     }
 
