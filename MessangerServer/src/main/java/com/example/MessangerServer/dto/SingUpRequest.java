@@ -15,17 +15,17 @@ import lombok.NoArgsConstructor;
 public class SingUpRequest {
 
     @Schema(description = "Никнейм пользователя", example = "Lezeks")
-    @Size(min = 2, max = 20, message = "Имя пользователя должно содержать от 2 до 20 символов")
-    @NotBlank(message = "Имя пользователя не должно быть пустым")
+    @Size(min = 2, max = 20, message = "Username must be from 2 to 20 characters")
+    @NotBlank(message = "Username field can not be blank")
     private String nickname;
 
     @Schema(description = "Адрес электронной почты", example = "lezeks@gmail.com")
-    @Size(min = 5, max = 50, message = "Адрес электронной почты должен содержать от 5 до 50 символов")
-    @NotBlank(message = "Адрес электронной почты не может быть пустым")
-    @Email(message = "Email адрес должен быть в формате user@example.com")
+    @Size(min = 5, max = 50, message = "Email address field must be from 5 to 50 characters")
+    @NotBlank(message = "Email field can not be blank")
+    @Email(message = "Email address must be in following format: user@example.com")
     private String email;
 
     @Schema(description = "Пароль", example = "123456qwerty")
-    @Size(max = 50, message = "Длина пароля должна быть не более 50 символов")
+    @Size(max = 50, message = "Length of the password should not exceed 50 letters")
     private String password;
 }

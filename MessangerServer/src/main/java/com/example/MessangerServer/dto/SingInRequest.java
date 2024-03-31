@@ -9,12 +9,12 @@ import lombok.Data;
 @Schema(description = "Запрос на аутентификацию")
 public class SingInRequest {
     @Schema(description = "Имя пользователя", example = "Lezeks")
-    @Size(min = 2, max = 20, message = "Имя пользователя должно содержать от 2 до 20 символов")
-    @NotBlank(message = "Имя пользователя не должно быть пустым")
+    @Size(min = 2, max = 20, message = "Username must be from 2 to 20 characters")
+    @NotBlank(message = "Username field can not be blank")
     private String nickname;
 
     @Schema(description = "Пароль", example = "123456qwerty")
-    @Size(min = 8, max = 50, message = "Длина пароля должна быть от 8 до 50 символов")
-    @NotBlank(message = "Пароль не может быть пустым")
+    @Size(max = 50, message = "Length of the password should not exceed 50 letters")
+    @NotBlank(message = "Password field can not be blank")
     private String password;
 }

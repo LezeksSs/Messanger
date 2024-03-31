@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Запрос на создание чата с указанным именем пользователя")
 public class CreateChatRequest {
     @Schema(description = "Имя пользователя с которым нужно создать чат", example = "Lezeks")
-    @Size(min = 2, max = 20, message = "Имя пользователя должно содержать от 2 до 20 символов")
-    @NotBlank(message = "Имя пользователя не должно быть пустым")
+    @Size(min = 2, max = 20, message = "Username must be from 2 to 20 characters")
+    @NotBlank(message = "Username field can not be blank")
     private String userTo;
 }

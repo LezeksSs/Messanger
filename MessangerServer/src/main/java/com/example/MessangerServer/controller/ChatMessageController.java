@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +32,8 @@ public class ChatMessageController {
     }
 
     @Operation(summary = "Получение чатов текущего пользователя")
+//    @MessageMapping("/chat")
+//    @SendTo("/topic/chat")
     @GetMapping
     public List<Chat> getChats() {
         return chatService.getChats();
