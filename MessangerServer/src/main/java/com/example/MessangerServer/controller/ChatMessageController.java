@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +28,11 @@ public class ChatMessageController {
 
     @Operation(summary = "Создание чата")
     @PostMapping
-    public void singUp(@RequestBody @Valid CreateChatRequest request) {
-        chatService.createChat(request);
+    public ResponseEntity<?> singUp(@RequestBody @Valid CreateChatRequest request) {
+        return chatService.createChat(request);
     }
 
     @Operation(summary = "Получение чатов текущего пользователя")
-//    @MessageMapping("/chat")
-//    @SendTo("/topic/chat")
     @GetMapping
     public List<Chat> getChats() {
         return chatService.getChats();
