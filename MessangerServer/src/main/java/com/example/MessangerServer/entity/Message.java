@@ -24,9 +24,15 @@ public class Message {
     @Column(name = "text")
     @Size(max = 1000)
     private String text;
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "chat_id")
+    private Chat chat;
+
     @Column(name = "sending_date")
     @CreationTimestamp
     private Date sending_date;

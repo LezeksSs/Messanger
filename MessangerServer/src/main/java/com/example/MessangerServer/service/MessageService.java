@@ -26,20 +26,24 @@ public class MessageService {
     private final UserService userService;
     private final MessageMapper mapper;
 
+
     @Autowired
     private EntityManager entityManager;
 
     public Message saveMessage(Message message) {
         return messageRepository.save(message);
     }
-    public Message addMessage(Chat chat, MessageRequest request) {
+    public MessageResponse addMessage(Chat chat, MessageRequest request, String username) {
         var message = Message.builder()
                 .text(request.getText())
-                .user(userService.getCurrentUser())
+                .chat(chat)
+                .user(userService.getByNickname(username))
                 .build();
         chat.addMessageToChat(message);
+        saveMessage(message);
 
-        return saveMessage(message);
+
+        return mapper.messageToDTO(message);
     }
 
     public List<MessageResponse> getMessage(long id) {

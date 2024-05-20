@@ -32,9 +32,10 @@ public class Chat {
     @Column(name = "modified_date")
     @UpdateTimestamp
     private Date modifiedOn;
+
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "chat_id", referencedColumnName = "id", insertable = true, updatable = true, nullable = false)
+    @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "chat_id", referencedColumnName = "id", insertable = true, updatable = true, nullable = false)
     private List<Message> messages;
 
     @JsonIgnore

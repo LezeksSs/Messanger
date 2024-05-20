@@ -12,8 +12,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +30,8 @@ import java.util.List;
 public class ChatMessageController {
     private final ChatService chatService;
     private final MessageService messageService;
+
+    private final SimpMessagingTemplate messagingTemplate;
 
     @Operation(summary = "Создание чата")
     @PostMapping
@@ -51,10 +58,22 @@ public class ChatMessageController {
     }
 
     @Operation(summary = "Создание сообщение в чате по его id")
-    @PostMapping("/{id}/message")
-    public void addMessage(@PathVariable long id, @RequestBody @Valid MessageRequest request) {
-        messageService.addMessage(chatService.getChat(id), request);
+    @MessageMapping("/{id}/message")
+    public void addMessage(@DestinationVariable long id, MessageRequest request, SimpMessageHeaderAccessor headerAccessor) {
+        String destination = "/topic/" + id + "/messages";
+
+        String username = (String) headerAccessor.getSessionAttributes().get("username");
+
+        MessageResponse message = messageService.addMessage(chatService.getChat(id), request, username);
+
+        messagingTemplate.convertAndSend(destination, message);
     }
+
+//    @PostMapping("/{id}/messages")
+//    public void addMessageToChat(@PathVariable long id, @RequestBody @Valid MessageRequest request) {
+//        messageService.addMessage(chatService.getChat(id), request);
+//    }
+
 
     @Operation(summary = "Получение сообщений в чате по его id")
     @GetMapping("/{id}/message")
